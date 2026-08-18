@@ -66,7 +66,7 @@ local function Init(SafeUi, Cloneref)
     ImageLabel.BackgroundTransparency = 1
     ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
     ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-    ImageLabel.Size = UDim2.new(0.061162080615758896, 0, 0.16778524219989777, 0)
+    ImageLabel.Size = UDim2.new(0.061162080615758896, 0, 0.15, 0)
     ImageLabel.Image = "rbxassetid://115232362040752"
     ImageLabel.ImageTransparency = 1
 
@@ -87,7 +87,7 @@ local function Init(SafeUi, Cloneref)
     Frame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Frame2.BackgroundTransparency = 1
     Frame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    Frame2.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Frame2.Position = UDim2.new(0.53, 0, 0.5, 0)
     Frame2.Size = UDim2.new(0.12232416123151779, 0, 0.08389262109994888, 0)
     Frame2.ClipsDescendants = true
 
@@ -129,7 +129,7 @@ local function Init(SafeUi, Cloneref)
     local T1 = Tween(Frame, {BackgroundTransparency=0}, 1.5)
     local T2 = Tween(UIShadow, {Transparency=0.5}, 1.5)
     local T3 = Tween(ImageLabel, {ImageTransparency=0})
-    local T4 = Tween(ImageLabel, {Position=UDim2.new(0.407, 0, 0.416, 0)})
+    local T4 = Tween(ImageLabel, {Position=UDim2.new(0.44, 0, ImageLabel.Position.Y.Scale, 0)})
     local T5 = Tween(TextLabel, {Position=UDim2.new(0, 0, 0, 0)})
     local T6 = Tween(Frame, {BackgroundTransparency=1})
     local T7 = Tween(ImageLabel, {ImageTransparency=1})
