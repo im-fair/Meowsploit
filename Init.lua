@@ -30,10 +30,25 @@ for _, FunctionData in RequiredFunctions do
     end
 end
 
+--Required to run with my architecture
+if table.find(LimitedFunctions, "hookfunction") or table.find(LimitedFunctions, "loadstring") then
+    error("Your executor is not compatible with Meowsploit's architecture!")
+end
+
+--Function Fallbacks
 local cloneref = GetFuncFallback(cloneref)
 local gethui = GetFuncFallback(gethui, function()
     return cloneref(game:GetService("CoreGui"))
 end)
 local getgenv = GetFuncFallback(getgenv, function())
 
+if game then --Hook require locally to get code blobs from github instead of a sandboxed environment like vscode
+    local OldRequire; OldRequire = hookfunction(getfenv()["require"], function(Path)
+        if checkcaller() then return OldRequire(Path) end
+
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/im-fair/Meowsploit/refs/heads/main/" .. Path .. ".lua"))()
+    end)
+end
+
+--UI Init
 require("Footer/Attribution").Init(gethui(), cloneref)
