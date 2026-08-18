@@ -42,7 +42,7 @@ local cloneref = GetFuncFallback(cloneref)
 local gethui = GetFuncFallback(gethui, function()
     return cloneref(game:GetService("CoreGui"))
 end)
-local getgenv = GetFuncFallback(getgenv, function())
+local genv = {}; local getgenv = GetFuncFallback(getgenv, function(...) return genv end)
 
 if game then --Hook require locally to get code blobs from github instead of a sandboxed environment like vscode
     local OldRequire; OldRequire = hookfunction(getfenv()["require"], function(Path)
