@@ -1,6 +1,8 @@
 if not game then --Use a dynamic package path for running on a lua environment
-    local PathInitDir = debug.getinfo(1, "S").source:sub(2):match("^(.*)[/\\]")
-    package.path=PathInitDir.."/?.lua;"..PathInitDir.."/?/init.lua;"..package.path
+    pcall(function()
+        local PathInitDir = debug.getinfo(1, "S").source:sub(2):match("^(.*)[/\\]")
+        package.path=PathInitDir.."/?.lua;"..PathInitDir.."/?/init.lua;"..package.path
+    end)
 end
 
 local function GetFuncFallback(Func, Fallback)
