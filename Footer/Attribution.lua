@@ -10,7 +10,7 @@ local function Init(SafeUi, Cloneref)
     Frame.LayoutOrder = 0
     Frame.Active = false
     Frame.Interactable = true
-    Frame.AnchorPoint = Vector2.new(0, 0)
+    Frame.AnchorPoint = Vector2.new(0.5, 0.5)
     Frame.Rotation = 0
     Frame.AutomaticSize = Enum.AutomaticSize.None
     Frame.Name = ""
@@ -53,7 +53,7 @@ local function Init(SafeUi, Cloneref)
     ImageLabel.LayoutOrder = 0
     ImageLabel.Active = false
     ImageLabel.Interactable = true
-    ImageLabel.AnchorPoint = Vector2.new(0, 0)
+    ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
     ImageLabel.Rotation = 0
     ImageLabel.AutomaticSize = Enum.AutomaticSize.None
     ImageLabel.Name = ""
@@ -75,7 +75,7 @@ local function Init(SafeUi, Cloneref)
     Frame2.LayoutOrder = 0
     Frame2.Active = false
     Frame2.Interactable = true
-    Frame2.AnchorPoint = Vector2.new(0, 0)
+    Frame2.AnchorPoint = Vector2.new(0.5, 0.5)
     Frame2.Rotation = 0
     Frame2.AutomaticSize = Enum.AutomaticSize.None
     Frame2.Name = ""
