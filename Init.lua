@@ -15,9 +15,25 @@ local function GetFuncFallback(Func, Fallback)
     end
 end
 
+local RequiredFunctions = {
+    {"hookfunction", false},
+    {"cloneref", true},
+    {"gethui", true},
+    {"getgenv", true},
+    {"loadstring", false}
+}
+local LimitedFunctions = {}
+
+for _, FunctionData in RequiredFunctions do
+    if not getfenv()[FunctionData[1]] and not FunctionData[2] then
+        table.insert(LimitedFunctions, FunctionData[1])
+    end
+end
+
 local cloneref = GetFuncFallback(cloneref)
 local gethui = GetFuncFallback(gethui, function()
     return cloneref(game:GetService("CoreGui"))
 end)
+local getgenv = GetFuncFallback(getgenv, function())
 
 require("Footer/Attribution").Init(gethui(), cloneref)
