@@ -45,8 +45,8 @@ end)
 local genv = {}; local getgenv = GetFuncFallback(getgenv, function(...) return genv end)
 
 if game then --Hook require locally to get code blobs from github instead of a sandboxed environment like vscode
-    local OldRequire; OldRequire = hookfunction(getfenv()["require"], function(Path)
-        if checkcaller() then return OldRequire(Path) end
+    local OldRequire; OldRequire = hookfunction(require, function(Path)
+        if not checkcaller() then return OldRequire(Path) end
 
         return loadstring(game:HttpGet("https://raw.githubusercontent.com/im-fair/Meowsploit/refs/heads/main/" .. Path .. ".lua"))()
     end)
