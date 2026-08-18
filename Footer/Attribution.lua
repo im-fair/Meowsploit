@@ -22,7 +22,7 @@ local function Init(SafeUi, Cloneref)
     Frame.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
     Frame.BackgroundTransparency = 1
     Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    Frame.Position = UDim2.new(0.37775060534477234, 0, 0.3322147727012634, 0)
+    Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
     Frame.Size = UDim2.new(0.24464832246303558, 0, 0.33557048439979553, 0)
 
     local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -65,7 +65,7 @@ local function Init(SafeUi, Cloneref)
     ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     ImageLabel.BackgroundTransparency = 1
     ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    ImageLabel.Position = UDim2.new(0.4694754183292389, 0, 0.4161073863506317, 0)
+    ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
     ImageLabel.Size = UDim2.new(0.061162080615758896, 0, 0.16778524219989777, 0)
     ImageLabel.Image = "rbxassetid://115232362040752"
     ImageLabel.ImageTransparency = 1
@@ -87,7 +87,7 @@ local function Init(SafeUi, Cloneref)
     Frame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Frame2.BackgroundTransparency = 1
     Frame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    Frame2.Position = UDim2.new(0.46882641315460205, 0, 0.45805367827415466, 0)
+    Frame2.Position = UDim2.new(0.5, 0, 0.5, 0)
     Frame2.Size = UDim2.new(0.12232416123151779, 0, 0.08389262109994888, 0)
     Frame2.ClipsDescendants = true
 
