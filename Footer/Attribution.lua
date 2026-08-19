@@ -237,7 +237,7 @@ local function Init(SafeUi, Cloneref, Interpreter)
     end
 
     local Instructions = {
-        [1] = {"Tween", Tween(Frame, {BackgroundTransparency=1}, 1)},
+        [1] = {"Tween", Tween(Frame, {BackgroundTransparency=0}, 1)},
         [2] = {"Tween", Tween(UIShadow, {Transparency=0.3}, 1)},
         [3] = {"Tween", Tween(ImageLabel2, {ImageTransparency=0.9})},
         [4] = {"Tween", Tween(UIStroke, {Transparency=0}, 1)},
