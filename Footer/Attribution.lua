@@ -41,7 +41,7 @@ local function Init(SafeUi, Cloneref, Interpreter)
     UIStroke.Parent = Frame
     UIStroke.Name = ""
     UIStroke.ZIndex = 3
-    UIStroke.Color = Color3.fromRGB(30, 30, 30)
+    UIStroke.Color = Color3.fromRGB(0, 0, 0)
     UIStroke.Thickness = 3
     UIStroke.Transparency = 1
 
@@ -107,7 +107,7 @@ local function Init(SafeUi, Cloneref, Interpreter)
     TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
     TextLabel.Position = UDim2.new(-1, 0, 0.25, 0)
     TextLabel.Size = UDim2.new(1, 0, 0.5, 0)
-    TextLabel.FontFace = Font.new("rbxassetid://12187365364")
+    TextLabel.FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
     TextLabel.RichText = true
     TextLabel.Text = "Meowsploit"
     TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -133,7 +133,7 @@ local function Init(SafeUi, Cloneref, Interpreter)
     Frame3.ZIndex = 2
     Frame3.BorderSizePixel = 0
     Frame3.Visible = true
-    Frame3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Frame3.BackgroundColor3 = Color3.fromRGB(212, 68, 68)
     Frame3.BackgroundTransparency = 1
     Frame3.BorderColor3 = Color3.fromRGB(0, 0, 0)
     Frame3.Position = UDim2.new(0.5, 0, 0.21199999749660492, 0)
@@ -172,7 +172,7 @@ local function Init(SafeUi, Cloneref, Interpreter)
     Frame4.ZIndex = 2
     Frame4.BorderSizePixel = 0
     Frame4.Visible = true
-    Frame4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Frame4.BackgroundColor3 = Color3.fromRGB(212, 68, 68)
     Frame4.BackgroundTransparency = 1
     Frame4.BorderColor3 = Color3.fromRGB(0, 0, 0)
     Frame4.Position = UDim2.new(0.5, 0, 0.7879999876022339, 0)
@@ -237,10 +237,10 @@ local function Init(SafeUi, Cloneref, Interpreter)
     end
 
     local Instructions = {
-        [1] = {"Tween", Tween(Frame, {BackgroundTransparency=0}, 1)},
+        [1] = {"Tween", Tween(Frame, {BackgroundTransparency=0.4}, 1)},
         [2] = {"Tween", Tween(UIShadow, {Transparency=0.3}, 1)},
         [3] = {"Tween", Tween(ImageLabel2, {ImageTransparency=0.9})},
-        [4] = {"Tween", Tween(UIStroke, {Transparency=0}, 1)},
+        [4] = {"Tween", Tween(UIStroke, {Transparency=0.2}, 1)},
         [5] = {"Function", function()
             for i = 1, 150 do
                 UIGradient.Color = ColorSequence.new({
@@ -252,9 +252,9 @@ local function Init(SafeUi, Cloneref, Interpreter)
             end
         end},
         [6] = {"CompleteTween", 4},
-        [7] = {"Tween", Tween(ImageLabel, {ImageTransparency=0}, 1)},
-        [8] = {"Tween", Tween(Frame3, {BackgroundTransparency=0}, 1)},
-        [9] = {"Tween", Tween(Frame4, {BackgroundTransparency=0}, 1)},
+        [7] = {"Tween", Tween(ImageLabel, {ImageTransparency=0.4}, 1)},
+        [8] = {"Tween", Tween(Frame3, {BackgroundTransparency=0.2}, 1)},
+        [9] = {"Tween", Tween(Frame4, {BackgroundTransparency=0.2}, 1)},
         [10] = {"Tween", Tween(UIShadow2, {Transparency=0.5}, 1)},
         [11] = {"Tween", Tween(UIShadow3, {Transparency=0.5}, 1)},
         [12] = {"CompleteTween", 11},
@@ -269,7 +269,7 @@ local function Init(SafeUi, Cloneref, Interpreter)
                 task.wait(1/30)
             end
         end},
-        [18] = {"Wait", 2},
+        [18] = {"Wait", 4},
         [19] = {"Tween", Tween(ImageLabel, {ImageTransparency=1}, 1)},
         [20] = {"Tween", Tween(TextLabel, {TextTransparency=1}, 1)},
         [21] = {"Tween", Tween(Frame3, {BackgroundTransparency=1}, 1)},
