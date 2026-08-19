@@ -239,8 +239,8 @@ local function Init(SafeUi, Cloneref, Interpreter)
     local Instructions = {
         [1] = {"Tween", Tween(Frame, {BackgroundTransparency=1}, 1)},
         [2] = {"Tween", Tween(UIShadow, {Transparency=0.3}, 1)},
-        [3] = {"Tween", Tween(ImageLabel2, {ImageTransparency=0.9})}
-        [4] = {"Tween", Tween(UIStroke, {Transparency=0}, 1)}
+        [3] = {"Tween", Tween(ImageLabel2, {ImageTransparency=0.9})},
+        [4] = {"Tween", Tween(UIStroke, {Transparency=0}, 1)},
         [5] = {"Function", function()
             for i = 1, 150 do
                 UIGradient.Color = ColorSequence.new({
@@ -256,7 +256,7 @@ local function Init(SafeUi, Cloneref, Interpreter)
         [8] = {"Tween", Tween(Frame3, {BackgroundTransparency=0}, 1)},
         [9] = {"Tween", Tween(Frame4, {BackgroundTransparency=0}, 1)},
         [10] = {"Tween", Tween(UIShadow2, {Transparency=0.5}, 1)},
-        [11] = {"Tween", Tween(UIShadow3, {Transparency=0.5}, 1)}
+        [11] = {"Tween", Tween(UIShadow3, {Transparency=0.5}, 1)},
         [12] = {"CompleteTween", 11},
         [13] = {"Tween", Tween(ImageLabel, {Position=UDim2.new(0.25,0,0.5,0)}, 1)},
         [14] = {"CompleteTween", 13},
