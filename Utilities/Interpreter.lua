@@ -22,7 +22,7 @@ InterpreterClass.Protos = {
     },
     ["TWN"] = {
         [1] = function(Instruction)
-            if not Instruction.B or typeof(Instruction.B) ~= "Tween" then
+            if not Instruction.B or Instruction.B:IsA("Tween") then
                 Instruction.ERR[Instruction.IDX] = "Invalid B Register"
                 return
             end

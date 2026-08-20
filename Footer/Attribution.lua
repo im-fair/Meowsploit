@@ -244,17 +244,17 @@ local function Init(SafeUi, Cloneref, Interpreter)
         Interpreter.NewInstruction(1, true, "TWN", Tween(ImageLabel2, {ImageTransparency = 0.9})),
         Interpreter.NewInstruction(1, true, "TWN", Tween(UIStroke, {Transparency = 0.2}, 1)),
         Interpreter.NewInstruction(1, true, "FUNC", function() for i = 1, 150 do UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1, Color3.fromRGB(i, i, i))}) task.wait(1 / 75) end end, "Async"),
-        Interpreter.NewInstruction(1, true, "CTWN", 4),
+        Interpreter.NewInstruction(1, false, "CTWN", 4),
         Interpreter.NewInstruction(1, true, "TWN", Tween(ImageLabel, {ImageTransparency = 0.4}, 1)),
         Interpreter.NewInstruction(1, true, "TWN", Tween(Frame3, {BackgroundTransparency = 0.2}, 1)),
         Interpreter.NewInstruction(1, true, "TWN", Tween(Frame4, {BackgroundTransparency = 0.2}, 1)),
         Interpreter.NewInstruction(1, true, "TWN", Tween(UIShadow2, {Transparency = 0.5}, 1)),
         Interpreter.NewInstruction(1, true, "TWN", Tween(UIShadow3, {Transparency = 0.5}, 1)),
-        Interpreter.NewInstruction(1, true, "CTWN", 11),
+        Interpreter.NewInstruction(1, false, "CTWN", 11),
         Interpreter.NewInstruction(1, true, "TWN", Tween(ImageLabel, {Position = UDim2.new(0.25, 0, 0.5, 0)}, 1)),
-        Interpreter.NewInstruction(1, true, "CTWN", 13),
+        Interpreter.NewInstruction(1, false, "CTWN", 13),
         Interpreter.NewInstruction(1, true, "TWN", Tween(TextLabel, {Position = UDim2.new(0, 0, 0.25, 0)}, 1)),
-        Interpreter.NewInstruction(1, true, "CTWN", 15),
+        Interpreter.NewInstruction(1, false, "CTWN", 15),
         Interpreter.NewInstruction(1, true, "FUNC", function() for i = 0, 30 do local Color = Color3.fromRGB(0, 0, 0):Lerp(Color3.fromRGB(212, 68, 68), i / 30) TextLabel.Text = string.format('Meow<font color="%s">sploit</font>', string.format("#%02x%02x%02x", Color.R * 255, Color.G * 255, Color.B * 255)) task.wait(1 / 30) end end, "Sync"),
         Interpreter.NewInstruction(1, true, "SLP", 4),
         Interpreter.NewInstruction(1, true, "TWN", Tween(ImageLabel, {ImageTransparency = 1}, 1)),
@@ -267,8 +267,8 @@ local function Init(SafeUi, Cloneref, Interpreter)
         Interpreter.NewInstruction(1, true, "TWN", Tween(UIStroke, {Transparency = 1}, 1)),
         Interpreter.NewInstruction(1, true, "TWN", Tween(UIShadow, {Transparency = 1}, 1)),
         Interpreter.NewInstruction(1, true, "TWN", Tween(Frame, {BackgroundTransparency = 1}, 1)),
-        Interpreter.NewInstruction(1, true, "CTWN", 28),
-        Interpreter.NewInstruction(1, true, "FUNC", function() ScreenGui:Destroy() end)
+        Interpreter.NewInstruction(1, false, "CTWN", 28),
+        Interpreter.NewInstruction(1, true, "FUNC", function() ScreenGui:Destroy() end, "Async")
     }
 
     Interpreter.RunSet(Instructions)
