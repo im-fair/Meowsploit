@@ -15,8 +15,11 @@ local genv = {}; local getgenv = GetFuncFallback(getgenv, function() return genv
 
 
 --UI Init
-local Acquire = game and require or function(Path)
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/im-fair/Meowsploit/refs/heads/main/" .. Path .. ".lua"))()
+local Acquire = require
+if game then
+    Acquire = function(Path)
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/im-fair/Meowsploit/refs/heads/main/" .. Path .. ".lua"))()
+    end
 end
 
 local Interpreter = Acquire("Utilities/Interpreter")
