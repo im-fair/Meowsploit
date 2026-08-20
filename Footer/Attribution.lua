@@ -231,62 +231,47 @@ local function Init(SafeUi, Cloneref, Interpreter)
     UIAspectRatioConstraint.Name = ""
     UIAspectRatioConstraint.AspectRatio = 1.600000023841858
 
+    --Interpreted Tweens
+
     local TweenService = Cloneref(game:GetService("TweenService"))
     local function Tween(Inst, Props, t, ti)
         return TweenService:Create(Inst, ti or TweenInfo.new(t or 1), Props)
     end
 
     local Instructions = {
-        [1] = {"Tween", Tween(Frame, {BackgroundTransparency=0.4}, 1)},
-        [2] = {"Tween", Tween(UIShadow, {Transparency=0.3}, 1)},
-        [3] = {"Tween", Tween(ImageLabel2, {ImageTransparency=0.9})},
-        [4] = {"Tween", Tween(UIStroke, {Transparency=0.2}, 1)},
-        [5] = {"Function", function()
-            for i = 1, 150 do
-                UIGradient.Color = ColorSequence.new({
-                    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-                    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),
-                    ColorSequenceKeypoint.new(1, Color3.fromRGB(i, i, i))
-                })
-                task.wait(1/150)
-            end
-        end},
-        [6] = {"CompleteTween", 4},
-        [7] = {"Tween", Tween(ImageLabel, {ImageTransparency=0.4}, 1)},
-        [8] = {"Tween", Tween(Frame3, {BackgroundTransparency=0.2}, 1)},
-        [9] = {"Tween", Tween(Frame4, {BackgroundTransparency=0.2}, 1)},
-        [10] = {"Tween", Tween(UIShadow2, {Transparency=0.5}, 1)},
-        [11] = {"Tween", Tween(UIShadow3, {Transparency=0.5}, 1)},
-        [12] = {"CompleteTween", 11},
-        [13] = {"Tween", Tween(ImageLabel, {Position=UDim2.new(0.25,0,0.5,0)}, 1)},
-        [14] = {"CompleteTween", 13},
-        [15] = {"Tween", Tween(TextLabel, {Position=UDim2.new(0, 0, 0.25, 0)}, 1)},
-        [16] = {"CompleteTween", 15},
-        [17] = {"Function", function()
-            for i = 0, 30 do
-                local Color = Color3.fromRGB(0, 0, 0):Lerp(Color3.fromRGB(212, 68, 68), i / 30)
-                TextLabel.Text = string.format('Meow<font color="%s">sploit</font>', string.format("#%02x%02x%02x", Color.R * 255, Color.G * 255, Color.B * 255))
-                task.wait(1/30)
-            end
-        end},
-        [18] = {"Wait", 4},
-        [19] = {"Tween", Tween(ImageLabel, {ImageTransparency=1}, 1)},
-        [20] = {"Tween", Tween(TextLabel, {TextTransparency=1}, 1)},
-        [21] = {"Tween", Tween(Frame3, {BackgroundTransparency=1}, 1)},
-        [22] = {"Tween", Tween(Frame4, {BackgroundTransparency=1}, 1)},
-        [23] = {"Tween", Tween(UIShadow2, {Transparency=1}, 1)},
-        [24] = {"Tween", Tween(UIShadow3, {Transparency=1}, 1)},
-        [25] = {"Tween", Tween(ImageLabel2, {ImageTransparency=1}, 1)},
-        [26] = {"Tween", Tween(UIStroke, {Transparency=1}, 1)},
-        [27] = {"Tween", Tween(UIShadow, {Transparency=1}, 1)},
-        [28] = {"Tween", Tween(Frame, {BackgroundTransparency=1}, 1)},
-        [29] = {"CompleteTween", 28},
-        [30] = {"Function", function()
-            ScreenGui:Destroy()
-        end}
+        Interpreter.NewInstruction(1, true, "TWN", Tween(Frame, {BackgroundTransparency = 0.4}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(UIShadow, {Transparency = 0.3}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(ImageLabel2, {ImageTransparency = 0.9})),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(UIStroke, {Transparency = 0.2}, 1)),
+        Interpreter.NewInstruction(1, true, "FUNC", function() for i = 1, 150 do UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1, Color3.fromRGB(i, i, i))}) task.wait(1 / 75) end end, "Async"),
+        Interpreter.NewInstruction(1, true, "CTWN", 4),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(ImageLabel, {ImageTransparency = 0.4}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(Frame3, {BackgroundTransparency = 0.2}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(Frame4, {BackgroundTransparency = 0.2}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(UIShadow2, {Transparency = 0.5}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(UIShadow3, {Transparency = 0.5}, 1)),
+        Interpreter.NewInstruction(1, true, "CTWN", 11),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(ImageLabel, {Position = UDim2.new(0.25, 0, 0.5, 0)}, 1)),
+        Interpreter.NewInstruction(1, true, "CTWN", 13),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(TextLabel, {Position = UDim2.new(0, 0, 0.25, 0)}, 1)),
+        Interpreter.NewInstruction(1, true, "CTWN", 15),
+        Interpreter.NewInstruction(1, true, "FUNC", function() for i = 0, 30 do local Color = Color3.fromRGB(0, 0, 0):Lerp(Color3.fromRGB(212, 68, 68), i / 30) TextLabel.Text = string.format('Meow<font color="%s">sploit</font>', string.format("#%02x%02x%02x", Color.R * 255, Color.G * 255, Color.B * 255)) task.wait(1 / 30) end end, "Sync"),
+        Interpreter.NewInstruction(1, true, "SLP", 4),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(ImageLabel, {ImageTransparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(TextLabel, {TextTransparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(Frame3, {BackgroundTransparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(Frame4, {BackgroundTransparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(UIShadow2, {Transparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(UIShadow3, {Transparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(ImageLabel2, {ImageTransparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(UIStroke, {Transparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(UIShadow, {Transparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "TWN", Tween(Frame, {BackgroundTransparency = 1}, 1)),
+        Interpreter.NewInstruction(1, true, "CTWN", 28),
+        Interpreter.NewInstruction(1, true, "FUNC", function() ScreenGui:Destroy() end)
     }
 
-    Interpreter.Interpret(Instructions)
+    Interpreter.RunSet(Instructions)
 end
 
 return {Init = Init}
