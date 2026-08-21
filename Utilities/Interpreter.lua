@@ -1,120 +1,118 @@
 local InterpreterClass = {}
 InterpreterClass.__index = InterpreterClass
 
-InterpreterClass.RunningUvdat = {}
+local cloneref = cloneref or function(...) return ... end
+local TWS = cloneref(game:GetService("TweenService"))
 
 InterpreterClass.Protos = {
-    ["FUNC"] = {
+    ["FNC"] = {
         [1] = function(Instruction)
-            if typeof(Instruction.B) ~= "function" then
-                Instruction.ERR[Instruction.IDX] = "Invalid B Register"
+            if typeof(Instruction.BND) ~= "function" then
+                Instruction.ERR[Instruction.IDX] = "Invalid BND Register"
                 return
             end
 
-            if Instruction.C == "Async" then
-                task.spawn(Instruction.B)
-            elseif Instruction.C == "Sync" then
-                Instruction.B()
-            else
-                Instruction.ERR[Instruction.IDX] = "Invalid C Register"
+            Instruction.BND(table.unpack(Instruction.V))
+        end,
+        [2] = function(Instruction)
+            if typeof(Instruction.BND) ~= "function" then
+                Instruction.ERR[Instruction.IDX] = "Invalid BND Register"
+                return
             end
+
+            task.spawn(Instruction.BND, table.unpack(Instruction.V))
         end
     },
     ["TWN"] = {
         [1] = function(Instruction)
-            if not Instruction.B or not Instruction.B:IsA("Tween") then
-                Instruction.ERR[Instruction.IDX] = "Invalid B Register"
+            if (typeof(Instruction.V[1]) ~= "TweenInfo" and typeof(Instruction.V[1]) ~= "number") or typeof(Instruction.V[2]) ~= "table" then
+                Instruction.ERR[Instruction.IDX] = "Invalid V Register"
                 return
             end
 
-            Instruction.B:Play()
-            InterpreterClass.RunningUvdat[Instruction.IDX] = Instruction.B
-            Instruction.B.Completed:Once(function() InterpreterClass.RunningUvdat[Instruction.IDX] = nil end)
-        end
-    },
-    ["CTWN"] = {
-        [1] = function(Instruction)
-            if not Instruction.B or typeof(Instruction.B) ~= "number" then
-                Instruction.ERR[Instruction.IDX] = "Invalid B Register"
+            TWS:Create(Instruction.BND, typeof(Instruction.V[1]) == "TweenInfo" and Instruction.V[1] or TweenInfo.new(Instruction.V[1] or 1), Instruction.V[2]):Play()
+        end,
+        [2] = function(Instruction)
+            if (typeof(Instruction.V[1]) ~= "TweenInfo" and typeof(Instruction.V[1]) ~= "number") or typeof(Instruction.V[2]) ~= "table" then
+                Instruction.ERR[Instruction.IDX] = "Invalid V Register"
                 return
             end
 
-            local Uvdat = InterpreterClass.RunningUvdat[Instruction.B]
+            local TW = TWS:Create(Instruction.BND, typeof(Instruction.V[1]) == "TweenInfo" and Instruction.V[1] or TweenInfo.new(Instruction.V[1] or 1), Instruction.V[2])
 
-            if not Uvdat then
-                Instruction.ERR[Instruction.IDX] = "B Register was already cleared from RunningUvdat"
-                return
-            end
-
-            Uvdat.Completed:Wait()
+            TW:Play()
+            TW.Completed:Wait()
         end
     },
     ["SLP"] = {
         [1] = function(Instruction)
-            if not Instruction.B or typeof(Instruction.B) ~= "number" then
-                Instruction.ERR[Instruction.IDX] = "Invalid B Register"
+            if typeof(Instruction.V[1]) ~= "number" then
+                Instruction.ERR[Instruction.IDX] = "Invalid V[1] Register"
                 return
             end
 
-            task.wait(Instruction.B)
+            task.wait(Instruction.V[1])
         end
     }
 }
 InterpreterClass.InstructionsIndexxed = 1
 
-InterpreterClass.NewInstruction = function(OpCode, Debug, RegisterA, RegisterB, RegisterC)
+InterpreterClass.NewSet = function(Debug)
+    local Set = {
+        ["DBG"] = Debug or false
+    }
+
+    setmetatable(Set, InterpreterClass)
+
+    return Set
+end
+
+function InterpreterClass:BindToSet(Binded, RegisterA, Opcode, ...)
     local Instruction = {
+        ["BND"] = Binded or "NULL",
         ["A"] = RegisterA or "NULL",
-        ["B"] = RegisterB or "NULL",
-        ["C"] = RegisterC or "NULL",
-        ["OP"] = OpCode or 1,
-        ["DBG"] = Debug or false,
+        ["OP"] = Opcode or 1,
+        ["V"] = {...},
+
         ["ERR"] = {},
         ["IDX"] = InterpreterClass.InstructionsIndexxed
     }
 
-    if Instruction.A == "NULL" and Instruction.B == "NULL" and Instruction.C == "NULL" then
-        Instruction.ERR["NULL"] = "Invalid Instruction"
-        return
-    end
-
     if not InterpreterClass.Protos[Instruction.A] then
-        Instruction.ERR["STRT"] = "Invalid Proto"
+        Instruction.ERR["PRO"] = "Invalid Proto"
         return nil
     end
 
     if not InterpreterClass.Protos[Instruction.A][Instruction.OP] then
-        Instruction.ERR["OP"] = "Invalid Operation"
+        Instruction.ERR["OPC"] = "Invalid Opcode"
         return nil
     end
 
-    setmetatable(Instruction, InterpreterClass)
     InterpreterClass.InstructionsIndexxed += 1
 
-    return Instruction
+    self[Instruction.IDX] = Instruction
 end
 
-function InterpreterClass:Run()
-    local Instruction = self
-    InterpreterClass.Protos[Instruction.A][Instruction.OP](Instruction)
-
-    if next(Instruction.ERR) == nil or not Instruction.DBG then return end
-
+function InterpreterClass:RunSet()
+    local Set = self
     local ERRDAT = {}
-    for ERRIDX, ERRINFO in Instruction.ERR do
-        table.insert(ERRDAT,
-            `Instruction Error [{ERRIDX}]: {ERRINFO}\n    OP: {Instruction.OP}\n    A: {Instruction.A}\n    B: {Instruction.B}\n    C: {Instruction.C}`
-        )
-    end
-    warn(table.concat(ERRDAT, "\n"))
-end
 
-function InterpreterClass.RunSet(InstructionSet)
-    for _, Instruction in InstructionSet do
-        if Instruction == nil then continue end
+    for k, Instruction in Set do
+        if typeof(k) ~= "number" then continue end
 
-        Instruction:Run()
+        InterpreterClass.Protos[Instruction.A][Instruction.OP](Instruction)
+
+        if next(Instruction.ERR) == nil or not Set.DBG then continue end
+        for ERRIDX, ERRINFO in Instruction.ERR do
+            table.insert(ERRDAT,
+                `Instruction Error [{ERRIDX}]: {ERRINFO}\n    BND: {Instruction.BND}\n    OP: {Instruction.OP}\n    A: {Instruction.A}`
+            )
+        end
     end
+
+    if not Set.DBG then return end
+
+    warn(table.concat(ERRDAT, "\n\n"))
 end
 
 return InterpreterClass
