@@ -1,3 +1,5 @@
+--A fair notice is that this interpreter is in my opinion not necessary but merely for the point of proving that I am a good coder who can make terrible decisions :p
+
 local InterpreterClass = {}
 InterpreterClass.__index = InterpreterClass
 
